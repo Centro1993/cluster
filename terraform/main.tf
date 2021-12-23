@@ -2,11 +2,12 @@ terraform {
   required_providers {
     hcloud = {
       source  = "hetznercloud/hcloud"
-      version = "~> 1.31.1"
+      version = "~> 1.32.2"
     }
   }
 }
 
+# export TF_VAR_hcloud_token='##########'
 variable "hcloud_token" {
   type = string
   sensitive = true
@@ -34,11 +35,15 @@ resource "hcloud_network_subnet" "network-subnet" {
   ip_range     = "10.0.1.0/24"
 }
 
-resource "hcloud_server" "server" {
-  name        = "server"
+resource "hcloud_server" "master-1" {
+  name        = "master-1"
   server_type = "cpx11"
   image       = "ubuntu-20.04"
   location    = "nbg1"
+
+  labels = {
+    role = "master"
+  }
 
   network {
     network_id = hcloud_network.network.id
@@ -59,11 +64,15 @@ resource "hcloud_server" "server" {
   ]
 }
 
-resource "hcloud_server" "agent-1" {
-  name        = "agent-1"
+resource "hcloud_server" "node-1" {
+  name        = "node-1"
   server_type = "cx21"
   image       = "ubuntu-20.04"
   location    = "nbg1"
+
+  labels = {
+    role = "node"
+  }
 
   network {
     network_id = hcloud_network.network.id
@@ -84,11 +93,15 @@ resource "hcloud_server" "agent-1" {
   ]
 }
 
-resource "hcloud_server" "agent-2" {
-  name        = "agent-2"
+resource "hcloud_server" "node-2" {
+  name        = "node-2"
   server_type = "cx21"
   image       = "ubuntu-20.04"
   location    = "nbg1"
+
+  labels = {
+    role = "node"
+  }
 
   network {
     network_id = hcloud_network.network.id
