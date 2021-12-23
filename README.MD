@@ -1,4 +1,6 @@
-### Quick K3s
+# Quick K3s
+
+Made with https://github.com/k3s-io/k3s-ansible
 
 ## Prerequirements
 - Ansible 2.9.27
@@ -7,12 +9,12 @@
 - An read/write API-Key for Hetzner Cloud
 - An SSH-Key to connect with GitHub
 
-# add API-Key to .bashrc or equivalent
+### add API-Key to .bashrc or equivalent
 '''
 export TF_VAR_hcloud_token='##########' HCLOUD_TOKEN='##########'
 '''
 
-# install hcloud plugin for ansible
+### install hcloud plugin for ansible
 '''
 ansible-galaxy collection install hetzner.hcloud
 DIR=$(pwd)
@@ -22,26 +24,28 @@ cd hcloud-python && pip install -e .
 cd $DIR
 '''
 
-# create servers
+## Deployment
+### create servers
 '''
 terraform init
 terraform plan
 terraform apply
 '''
 
-# display ansible inventory
+### display ansible inventory
 '''
 cd ansible
 ansible-inventory -i inventory/hcloud/hcloud.yaml --graph
 '''
 
-# deploy k3s
-# WARNING: this will overwrite your kubeconfig (fetch task in roles/master/tasks/main.yml)
+### deploy k3s
+#### WARNING: this will overwrite your kubeconfig (fetch task in roles/master/tasks/main.yml)
 '''
 ansible-playbook site.yml -i inventory/hcloud
 '''
 
-# deploy flux
+### deploy flux
+First, fork this repo so you can use it to configure your own cluster.
 '''
 flux check --pre
 '''
