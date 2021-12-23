@@ -5,6 +5,8 @@ metadata:
   namespace: certmanager
 spec:
   interval: 5m
+  install:
+    createNamespace: true
   chart:
     spec:
       chart: jetstack/cert-manager
