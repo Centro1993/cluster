@@ -48,4 +48,8 @@ ansible-playbook site.yml -i inventory/hcloud
 First, fork this repo so you can use it to configure your own cluster.
 '''
 flux check --pre
+flux bootstrap git \
+  --url=ssh://git@github.com/Centro1993/cluster \
+  --branch=main \
+  --path=clusters/hcloud
 '''
