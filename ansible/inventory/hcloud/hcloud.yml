@@ -1,4 +1,5 @@
 plugin: hcloud
 
 keyed_groups:
-  - key: label
+  - key: labels
+    

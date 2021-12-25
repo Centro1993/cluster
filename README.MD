@@ -27,21 +27,23 @@ cd $DIR
 ## Deployment
 ### create servers
 '''
+cd terraform
 terraform init
 terraform plan
 terraform apply
+cd ..
 '''
 
 ### display ansible inventory
 '''
 cd ansible
-ansible-inventory -i inventory/hcloud/hcloud.yaml --graph
+ansible-inventory -i inventory/hcloud/ --graph
 '''
 
 ### deploy k3s
 #### WARNING: this will overwrite your kubeconfig (fetch task in roles/master/tasks/main.yml)
 '''
-ansible-playbook site.yml -i inventory/hcloud
+ansible-playbook site.yml -i inventory/hcloud/
 '''
 
 ### deploy flux
